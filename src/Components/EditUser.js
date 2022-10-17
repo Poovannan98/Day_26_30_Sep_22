@@ -23,7 +23,7 @@ function EditUser(props) {
         {
             navigate('/')
         }
-    },[])
+    },[navigate, params.id, props.data.users])
 
    
 
