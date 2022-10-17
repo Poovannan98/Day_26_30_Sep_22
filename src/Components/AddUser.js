@@ -1,9 +1,49 @@
-import React from 'react'
+import React,{useState} from 'react'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import {useNavigate} from 'react-router-dom'
 
-function AddUser() {
-  return (
-    <div>AddUser</div>
-  )
+function AddUser(props) {
+  let [name,setName] = useState("");
+  let [email,setEmail] = useState("");
+  let [mobile,setMobile] = useState("");
+  let [batch,setBatch] = useState("");
+
+  let navigate = useNavigate()
+
+  let handleSubmit = ()=>{
+      let newData = {name,email,mobile,batch}
+      //take a deep clone of the state
+      let data = [...props.data.users]
+      //push the data to the new clone
+      data.push(newData)
+      //update the state with the new cloned variable
+      props.data.setUsers(data)
+      navigate('/')
+  }
+  return <>
+    <div className="mx-auto col-10"> 
+    <Form>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Name</Form.Label>
+        <Form.Control type="text" placeholder="Enter Name" onChange={(e)=>setName(e.target.value)} />
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" placeholder="Enter Email" onChange={(e)=>setEmail(e.target.value)} />
+        <Form.Label>Batch</Form.Label>
+        <Form.Control type="text" placeholder="Enter Batch" onChange={(e)=>setBatch(e.target.value)}/>
+        <Form.Label>Mobile Number</Form.Label>
+        <Form.Control type="number" placeholder="Enter Mobile number" onChange={(e)=>setMobile(e.target.value)}/>
+        <Form.Text className="text-muted">
+          Enter only the number otherwise it could't acept.
+        </Form.Text>
+      </Form.Group> 
+      
+      <Button variant="primary" onClick={()=>handleSubmit()}>
+        Submit
+      </Button>
+    </Form>
+    </div>
+  </>
 }
 
 export default AddUser

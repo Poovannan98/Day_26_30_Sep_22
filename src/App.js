@@ -2,8 +2,9 @@ import './App.css';
 import AddUser from './Components/AddUser';
 import Dashboard from './Components/Dashboard';
 import Sidebar from './Components/Sidebar';
-import {BrowserRouter,Route,Routes} from 'react-router-dom'
+import {BrowserRouter,Navigate,Route,Routes} from 'react-router-dom'
 import { useState } from 'react';
+import EditUser from './Components/EditUser';
 
 
 function App() {
@@ -54,8 +55,11 @@ function App() {
       <Sidebar/>
 
       <Routes>
-        <Route path='/dashboard' element={<Dashboard data={{data,users,setUsers}}/>}/>
-        <Route path='/add-user' element={<AddUser/>}/>
+        
+        <Route path='/' element={<Dashboard data={{data,users,setUsers}}/>}/>
+        <Route path='/add-user' element={<AddUser data={{users,setUsers}}/>}/>
+        <Route path='/edit-user/:id' element={<EditUser  data={{users,setUsers}}/> }/> 
+        <Route path='*' element={<Navigate to='/'/>}/>
 
       </Routes>
 

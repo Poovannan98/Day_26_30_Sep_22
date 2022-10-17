@@ -3,8 +3,16 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {useNavigate} from 'react-router-dom'
 
 function Dashboard(props) {
+
+    let navigate = useNavigate()
+    let handleDelete = (i)=>{
+        let newData = [...props.data.users]
+        newData.splice(i,1)
+        props.data.setUsers(newData)
+    }
   return <>
     <div className="container-fluid">
 
@@ -124,9 +132,9 @@ function Dashboard(props) {
                         <td>{user.mobile}</td>
                         <td>{user.batch}</td>
                         <td>
-                            <Button variant='primary'><EditIcon/>Edit</Button>
+                            <Button variant='primary' onClick={()=>navigate(`/edit-user/${i}`)}><EditIcon/>Edit</Button>
                             &nbsp;
-                            <Button variant='danger'><DeleteIcon/>Delete</Button>
+                            <Button variant='danger' onClick={()=>handleDelete(i)}><DeleteIcon/>Delete</Button>
                         </td>
 
                     </tr>
